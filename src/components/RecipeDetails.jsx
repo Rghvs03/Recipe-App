@@ -4,77 +4,91 @@ import { MyStore } from "../../ContextApi/MyContext";
 
 const RecipeDetails = () => {
   const { name } = useParams();
+  const { recipes } = useContext(MyStore);
 
-  let { recipes } = useContext(MyStore);
-
-  let details = recipes.find((elem) => name === elem.title);
-  console.log(details);
+  const details = recipes.find((elem) => name === elem.title);
 
   return (
     <div
       className="
-  w-[80vw] max-w-5xl bg-white rounded-2xl border-2 border-[#ff4a4a]
-  shadow-lg mx-auto my-8 flex flex-col overflow-hidden
-  transition-shadow duration-300 hover:shadow-2xl
-"
+        w-[85vw] max-w-6xl bg-white rounded-3xl border-2 border-[#ff4a4a]
+        shadow-xl mx-auto my-10 grid grid-cols-1 md:grid-cols-2 overflow-hidden
+        transition-shadow duration-300 hover:shadow-2xl
+      "
     >
-      <div className="w-full h-[32vw] max-h-[340px] min-h-[150px] relative overflow-hidden">
+      {/* Image Section */}
+      <div className="relative h-[300px] md:h-auto md:min-h-[450px] overflow-hidden">
         <img
           src={details?.image}
           alt={details?.title || "Recipe"}
           className="
-        absolute top-0 left-0 w-full h-full object-cover
-        transition-transform duration-300
-        hover:scale-105
-        [will-change:transform]
-      "
-          style={{
-            borderTopLeftRadius: 0,
-            borderTopRightRadius: 0,
-            borderBottomLeftRadius: "1rem",
-            borderBottomRightRadius: "1rem",
-          }}
+            absolute top-0 left-0 w-full h-full object-cover
+            transition-transform duration-500 hover:scale-105
+            [will-change:transform]
+          "
           draggable={false}
         />
       </div>
 
-      <div className="flex flex-col flex-1 p-4 sm:p-7">
-        <span className="text-2xl sm:text-3xl font-bold text-[#af1f1f] mb-4 truncate transition-colors duration-200 hover:text-[#ff4a4a]">
+      {/* Details Section */}
+      <div
+        className="
+          flex flex-col justify-between p-6 sm:p-10 bg-[#fff8f8]
+        "
+      >
+        {/* Title */}
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#af1f1f] mb-4 border-b-2 border-[#ff4a4a] pb-2">
           {details?.title}
-        </span>
-        <div className="mb-4 flex items-center gap-2">
-          <span className="bg-[#ffeded] text-[#af1f1f] text-xs sm:text-sm font-semibold px-3 py-1 rounded-full shadow transition-all duration-150 hover:bg-[#ffdede]">
-            Time
+        </h1>
+
+        {/* Time */}
+        <div className="mb-6 flex items-center gap-3">
+          <span
+            className="
+              bg-[#ffeded] text-[#af1f1f] text-sm sm:text-base font-semibold
+              px-4 py-1 rounded-full shadow-sm
+              hover:bg-[#ffdede] transition-all duration-200
+            "
+          >
+            Cooking Time
           </span>
-          <span className="text-base sm:text-lg text-[#ff4a4a] italic font-medium">
+          <span className="text-lg sm:text-xl text-[#ff4a4a] italic font-medium">
             {details?.time}
           </span>
         </div>
-        <h4 className="text-lg font-semibold mb-2 text-[#ff4a4a]">
-          Ingredients
-        </h4>
-        <div
-          className="
-      text-gray-700 text-base mb-5 px-3 py-2 max-h-32 overflow-y-auto rounded-lg
-      bg-[#fff7f7] shadow-sm break-words
-      scrollbar-thin scrollbar-thumb-[#ff4a4a] scrollbar-track-[#ffeded] scrollbar-thumb-rounded-full
-      hover:shadow-md transition-shadow duration-150
-    "
-        >
-          {details?.ingredients}
+
+        {/* Ingredients */}
+        <div className="mb-6">
+          <h4 className="text-xl font-semibold mb-2 text-[#ff4a4a]">
+            Ingredients
+          </h4>
+          <div
+            className="
+              text-gray-700 text-base px-4 py-3 max-h-44 overflow-y-auto rounded-xl
+              bg-[#fff7f7] shadow-sm leading-relaxed
+              scrollbar-thin scrollbar-thumb-[#ff4a4a] scrollbar-track-[#ffeded] scrollbar-thumb-rounded-full
+              hover:shadow-md transition-shadow duration-150
+            "
+          >
+            {details?.ingredients || "No ingredients provided."}
+          </div>
         </div>
-        <h4 className="text-lg font-semibold mb-2 text-[#ff4a4a]">
-          Instructions
-        </h4>
-        <div
-          className="
-      text-gray-700 text-base px-3 py-2 mb-2 max-h-40 overflow-y-auto rounded-lg
-      bg-[#fff7f7] shadow-sm break-words
-      scrollbar-thin scrollbar-thumb-[#ff4a4a] scrollbar-track-[#ffeded] scrollbar-thumb-rounded-full
-      hover:shadow-md transition-shadow duration-150
-    "
-        >
-          {details?.instructions}
+
+        {/* Instructions */}
+        <div>
+          <h4 className="text-xl font-semibold mb-2 text-[#ff4a4a]">
+            Instructions
+          </h4>
+          <div
+            className="
+              text-gray-700 text-base px-4 py-3 max-h-56 overflow-y-auto rounded-xl
+              bg-[#fff7f7] shadow-sm leading-relaxed
+              scrollbar-thin scrollbar-thumb-[#ff4a4a] scrollbar-track-[#ffeded] scrollbar-thumb-rounded-full
+              hover:shadow-md transition-shadow duration-150
+            "
+          >
+            {details?.instructions || "No instructions provided."}
+          </div>
         </div>
       </div>
     </div>
