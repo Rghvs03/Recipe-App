@@ -13,7 +13,7 @@ const RecipeDetails = () => {
   return (
     <div
       className="
-  w-[80vw] max-w-5xl bg-white rounded-t-2xl border-2 border-[#ff4a4a]
+  w-[80vw] max-w-5xl bg-white rounded-2xl border-2 border-[#ff4a4a]
   shadow-lg mx-auto my-8 flex flex-col overflow-hidden
   transition-shadow duration-300 hover:shadow-2xl
 "
