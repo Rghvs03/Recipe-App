@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { useParams } from "react-router";
 import { MyStore } from "../../ContextApi/MyContext";
+import { FaClock, FaUtensils, FaListUl, FaInfoCircle } from "react-icons/fa";
 
 const RecipeDetails = () => {
   const { name } = useParams();
@@ -8,88 +9,74 @@ const RecipeDetails = () => {
 
   const details = recipes.find((elem) => name === elem.title);
 
+  if (!details)
+    return (
+      <div className="flex items-center justify-center h-screen text-[#af1f1f] font-semibold text-2xl">
+        Recipe not found.
+      </div>
+    );
+
   return (
-    <div
-      className="
-        w-[85vw] max-w-6xl bg-white rounded-3xl border-2 border-[#ff4a4a]
-        shadow-xl mx-auto my-10 grid grid-cols-1 md:grid-cols-2 overflow-hidden
-        transition-shadow duration-300 hover:shadow-2xl
-      "
-    >
-      {/* Image Section */}
-      <div className="relative h-[300px] md:h-auto md:min-h-[450px] overflow-hidden">
+    <div className="w-[90vw] max-w-6xl mx-auto my-10 bg-white border border-[#ff4a4a]/30 rounded-[2rem] overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
+      {/* Header Image with Overlay */}
+      <div className="relative h-[350px] md:h-[480px] overflow-hidden">
         <img
-          src={details?.image}
-          alt={details?.title || "Recipe"}
-          className="
-            absolute top-0 left-0 w-full h-full object-cover
-            transition-transform duration-500 hover:scale-105
-            [will-change:transform]
-          "
+          src={details.image}
+          alt={details.title}
+          className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
           draggable={false}
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#00000080] to-transparent"></div>
+        <div className="absolute bottom-6 left-6 text-white">
+          <h1 className="text-3xl sm:text-5xl font-extrabold drop-shadow-md mb-2">
+            {details.title}
+          </h1>
+          <div className="flex items-center gap-3 text-lg">
+            <FaClock className="text-[#ffeded]" />
+            <p>{details.time}</p>
+          </div>
+        </div>
       </div>
 
-      {/* Details Section */}
-      <div
-        className="
-          flex flex-col justify-between p-6 sm:p-10 bg-[#fff8f8]
-        "
-      >
-        {/* Title */}
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#af1f1f] mb-4 border-b-2 border-[#ff4a4a] pb-2">
-          {details?.title}
-        </h1>
-
-        {/* Time */}
-        <div className="mb-6 flex items-center gap-3">
-          <span
-            className="
-              bg-[#ffeded] text-[#af1f1f] text-sm sm:text-base font-semibold
-              px-4 py-1 rounded-full shadow-sm
-              hover:bg-[#ffdede] transition-all duration-200
-            "
-          >
-            Cooking Time
-          </span>
-          <span className="text-lg sm:text-xl text-[#ff4a4a] italic font-medium">
-            {details?.time}
-          </span>
-        </div>
-
+      {/* Content Section */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8 bg-[#fff8f8]">
         {/* Ingredients */}
-        <div className="mb-6">
-          <h4 className="text-xl font-semibold mb-2 text-[#ff4a4a]">
-            Ingredients
-          </h4>
-          <div
-            className="
-              text-gray-700 text-base px-4 py-3 max-h-44 overflow-y-auto rounded-xl
-              bg-[#fff7f7] shadow-sm leading-relaxed
-              scrollbar-thin scrollbar-thumb-[#ff4a4a] scrollbar-track-[#ffeded] scrollbar-thumb-rounded-full
-              hover:shadow-md transition-shadow duration-150
-            "
-          >
-            {details?.ingredients || "No ingredients provided."}
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 text-[#ff4a4a] mb-2">
+            <FaListUl />
+            <h2 className="text-2xl font-semibold">Ingredients</h2>
+          </div>
+          <div className="bg-[#fff7f7] rounded-xl shadow-sm p-4 h-[250px] overflow-y-auto scrollbar-thin scrollbar-thumb-[#ff4a4a] scrollbar-track-[#ffeded] hover:shadow-md transition-shadow duration-200 text-gray-700 leading-relaxed">
+            {details.ingredients || "No ingredients provided."}
           </div>
         </div>
 
         {/* Instructions */}
-        <div>
-          <h4 className="text-xl font-semibold mb-2 text-[#ff4a4a]">
-            Instructions
-          </h4>
-          <div
-            className="
-              text-gray-700 text-base px-4 py-3 max-h-56 overflow-y-auto rounded-xl
-              bg-[#fff7f7] shadow-sm leading-relaxed
-              scrollbar-thin scrollbar-thumb-[#ff4a4a] scrollbar-track-[#ffeded] scrollbar-thumb-rounded-full
-              hover:shadow-md transition-shadow duration-150
-            "
-          >
-            {details?.instructions || "No instructions provided."}
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 text-[#ff4a4a] mb-2">
+            <FaInfoCircle />
+            <h2 className="text-2xl font-semibold">Instructions</h2>
+          </div>
+          <div className="bg-[#fff7f7] rounded-xl shadow-sm p-4 h-[250px] overflow-y-auto scrollbar-thin scrollbar-thumb-[#ff4a4a] scrollbar-track-[#ffeded] hover:shadow-md transition-shadow duration-200 text-gray-700 leading-relaxed">
+            {details.instructions || "No instructions provided."}
           </div>
         </div>
+      </div>
+
+      {/* Footer */}
+      <div className="flex flex-col sm:flex-row items-center justify-between px-8 py-5 bg-[#ffeded]">
+        <div className="flex items-center gap-3 text-[#af1f1f]">
+          <FaUtensils className="text-2xl" />
+          <span className="font-semibold tracking-wide text-lg">
+            Ready to serve!
+          </span>
+        </div>
+        <button
+          className="mt-4 sm:mt-0 px-6 py-2 bg-[#ff4a4a] text-white font-medium rounded-full shadow-md hover:bg-[#af1f1f] transition-all duration-200"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          Back to Top
+        </button>
       </div>
     </div>
   );
