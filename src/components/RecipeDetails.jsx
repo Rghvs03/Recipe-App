@@ -1,11 +1,12 @@
 import { useContext } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { MyStore } from "../../ContextApi/MyContext";
 import { FaClock, FaUtensils, FaListUl, FaInfoCircle } from "react-icons/fa";
 
 const RecipeDetails = () => {
   const { name } = useParams();
   const { recipes } = useContext(MyStore);
+  const navigate = useNavigate();
 
   const details = recipes.find((elem) => name === elem.title);
 
@@ -76,6 +77,12 @@ const RecipeDetails = () => {
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
           Back to Top
+        </button>
+        <button
+          className="mt-4 sm:mt-0 px-6 py-2 bg-[#ff4a4a] text-white font-medium rounded-full shadow-md hover:bg-[#af1f1f] transition-all duration-200"
+          onClick={() => navigate("/")}
+        >
+          Back to Recipes
         </button>
       </div>
     </div>

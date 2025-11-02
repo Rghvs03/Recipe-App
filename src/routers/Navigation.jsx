@@ -41,9 +41,6 @@ const Navigation = () => {
             Add-Recipes
           </NavLink>
         </div>
-        <button className="hidden md:flex items-center gap-2 text-2xl font-semibold cursor-pointer hover:">
-          SignUp
-        </button>
         <button
           className="md:hidden"
           onClick={() => setMenuOpen((prev) => !prev)}
