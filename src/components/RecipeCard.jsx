@@ -6,7 +6,9 @@ const RecipeCard = ({ elem }) => {
   let navigate = useNavigate();
   let { recipes, setRecipes} =  useContext(MyStore);
   const handleDelete = () => {
-    setRecipes(recipes.filter(recipe => recipe.title !== elem.title));
+    let updatedRecipes = recipes.filter(recipe => recipe.title !== elem.title)
+    setRecipes(updatedRecipes);
+    localStorage.setItem("recipes",JSON.stringify(updatedRecipes));
   };
 
   return (
