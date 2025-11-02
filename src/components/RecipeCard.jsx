@@ -42,7 +42,7 @@ const RecipeCard = ({ elem }) => {
 
         <div className="mt-auto flex gap-2">
           <button
-            onClick={() => navigate(`/Details/${elem.title}`)}
+            onClick={() => navigate(`/Details/${encodeURIComponent(elem.title)}`)}
             className="flex-1 bg-[#ff4a4a] py-2 rounded-xl text-white font-semibold hover:bg-[#d13a3a] transition shadow"
           >
             Explore Now

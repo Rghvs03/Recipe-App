@@ -5,10 +5,11 @@ import { FaClock, FaUtensils, FaListUl, FaInfoCircle } from "react-icons/fa";
 
 const RecipeDetails = () => {
   const { name } = useParams();
+  const decodedName = decodeURIComponent(name);
   const { recipes } = useContext(MyStore);
   const navigate = useNavigate();
 
-  const details = recipes.find((elem) => name === elem.title);
+  const details = recipes.find((elem) => decodedName === elem.title);
 
   if (!details)
     return (
